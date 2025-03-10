@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+# Importar tema atual
+DIR="$HOME/.config/i3/rofi/theme"
+RASI="$DIR/asroot.rasi"
+
+# Elementos do tema
+prompt='Superusuário'
+mesg="Executar aplicativos como root"
+term='alacritty --class alacritty-float,alacritty-float'
+
+# Opções
+layout=$(grep 'USE_ICON' "$RASI" | cut -d'=' -f2)
+if [[ "$layout" == 'NO' ]]; then
+	option_1=" Alacritty"
+	option_2=" Thunar"
+	option_3=" Geany"
+	option_4=" Ranger"
+	option_5=" Vim"
+else
+	option_1=""
+	option_2=""
+	option_3=""
+	option_4=""
+	option_5=""
+fi
+
+# Comando do Rofi
+rofi_cmd() {
+	rofi -dmenu \
+		-p "$prompt" \
+		-mesg "$mesg" \
+		-markup-rows \
+		-theme "$RASI"
+}
+
+# Passar variáveis para o Rofi
+run_rofi() {
+	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5" | rofi_cmd
+}
+
+# Executar comandos como root com suporte gráfico
+run_cmd() {
+	if [[ "$1" == '--opt1' ]]; then
+		pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY $term
+	elif [[ "$1" == '--opt2' ]]; then
+		pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY dbus-run-session thunar
+	elif [[ "$1" == '--opt3' ]]; then
+		pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY geany
+	elif [[ "$1" == '--opt4' ]]; then
+		pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY $term -e ranger
+	elif [[ "$1" == '--opt5' ]]; then
+		pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY $term -e vim
+	fi
+}
+
+# Ações
+chosen=$(run_rofi)
+case "$chosen" in
+	$option_1) run_cmd --opt1 ;;
+	$option_2) run_cmd --opt2 ;;
+	$option_3) run_cmd --opt3 ;;
+	$option_4) run_cmd --opt4 ;;
+	$option_5) run_cmd --opt5 ;;
+esac
