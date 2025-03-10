@@ -34,7 +34,7 @@ echo -e "${GREEN}$ascii_art${NC}"
 # Lista de pacotes
 packages=(
   arandr autotiling base base-devel bat chromium dmenu dunst eza feh ffmpegthumbnailer
-  font-manager geany geany-plugins git grub gst-plugin-pipewire hsetroot htop i3-wm
+  geany geany-plugins git grub gst-plugin-pipewire hsetroot htop i3-wm
   i3blocks i3lock i3status iwd kitty ksuperkey libpulse lightdm lightdm-gtk-greeter
   lightdm-gtk-greeter-settings linux-firmware linux-lts lxappearance maim mpc nano
   neofetch network-manager-applet networkmanager nitrogen noto-fonts-emoji picom
