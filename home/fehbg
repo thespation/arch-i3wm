@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/william/.config/i3/wallpapers/01.jpg' 
