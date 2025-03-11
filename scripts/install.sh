@@ -13,23 +13,19 @@ execute_script() {
     curl -s "${1}" | bash
 }
 
-# Função para exibir o menu
+# Função para exibir o menu com o status das opções
 show_menu() {
     echo -e "Escolha uma das opções abaixo:"
-    echo "1) Instalar pacotes"
-    echo "2) Copiar personalizações"
-    echo "3) Instalar temas personalizados"
-    echo "4) Instalar ícones personalizados"
-    echo "5) Todas as opções acima"
-}
+    
+    for i in {1..4}; do
+        if [[ " ${chosen[@]} " =~ " $i " ]]; then
+            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [✔] Já executado"
+        else
+            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [ ] Não executado"
+        fi
+    done
 
-# Função para verificar se uma opção foi escolhida
-show_status() {
-    if [[ " ${chosen[@]} " =~ " $1 " ]]; then
-        echo " [✔] Já executado"
-    else
-        echo " [ ] Não executado"
-    fi
+    echo "5) Todas as opções acima"
 }
 
 # Armazenar as opções escolhidas
@@ -38,11 +34,6 @@ chosen=()
 # Loop do menu
 while true; do
     show_menu
-    # Exibir o status de cada opção
-    for i in {1..4}; do
-        show_status $i
-    done
-
     # Solicitar escolha do usuário
     read -p "Digite o número da opção desejada (ou '0' para sair): " choice
 
