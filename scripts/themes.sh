@@ -74,8 +74,8 @@ find "$THEMES_DIR" -type d -name "files" | while read -r files_dir; do
             sudo mkdir -p "$dest_theme_dir"
         fi
 
-        # Copiar a pasta inteira para o destino (substituindo arquivos existentes)
-        sudo cp -rf "$subfolder/" "$dest_theme_dir/"
+        # Copiar o conteúdo da pasta diretamente para o destino
+        sudo cp -rf "$subfolder/"* "$dest_theme_dir/"
         check_status $? "Copiado: $subfolder_name" "Erro ao copiar: $subfolder_name"
 
         # Ajustar permissões para garantir que os temas sejam reconhecidos
