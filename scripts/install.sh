@@ -28,6 +28,11 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  ├┴┐├─┤└─┐├┤ 
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘  └─┘┴ ┴└─┘└─┘${NC}"
 
+# Atualizar o sistema antes de instalar pacotes
+echo -e "${YELLOW}Atualizando o sistema...${NC}"
+sudo pacman -Syu --noconfirm
+echo -e "${GREEN}[✔]${NC} Sistema atualizado!"
+
 # Lista de pacotes
 packages=(
   arandr autotiling base base-devel bat chromium dmenu dunst eza feh ffmpegthumbnailer
@@ -109,3 +114,8 @@ install_aur_package() {
 for pkg in "${aur_packages[@]}"; do
   install_aur_package $pkg
 done
+
+# Modificar para o zsh
+if pacman -Qi zsh &>/dev/null; then
+    chsh -s $(which zsh)
+    fi
