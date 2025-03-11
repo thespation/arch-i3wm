@@ -82,3 +82,14 @@ find "$ICONS_DIR" -type d -name "files" | while read -r files_dir; do
         fi
     done
 done
+
+# Garantir que o diretório de ícones tenha permissões de leitura para o usuário
+log_message "Ajustando permissões de leitura para os ícones..." "$YELLOW" "[✔]"
+sudo chmod -R a+r /usr/share/icons
+check_status $? "Permissões ajustadas com sucesso" "Erro ao ajustar permissões"
+
+# Se quiser alterar a propriedade para o seu usuário (substitua 'seu_usuario' pelo seu nome de usuário)
+# sudo chown -R seu_usuario:seu_usuario /usr/share/icons
+# check_status $? "Propriedade alterada para o usuário" "Erro ao alterar a propriedade dos ícones"
+
+log_message "Processo de instalação e permissão concluído." "$GREEN" "[✔]"
