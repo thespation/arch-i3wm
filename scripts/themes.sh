@@ -76,7 +76,16 @@ find "$THEMES_DIR" -type d -name "files" | while read -r files_dir; do
 
         # Copiar a pasta inteira para o destino (substituindo arquivos existentes)
         sudo cp -rf "$subfolder/" "$dest_theme_dir/"
+        check_status $? "Copiado: $subfolder_name" "Erro ao copiar: $subfolder_name"
 
-        log_message "Copiado: $subfolder_name" "$GREEN" "[✔]"
+        # Ajustar permissões para garantir que os temas sejam reconhecidos
+        sudo chmod -R a+r "$dest_theme_dir"
+        check_status $? "Permissões ajustadas para $subfolder_name" "Erro ao ajustar permissões"
+
+        # Opcional: Alterar a propriedade para o seu usuário (substitua 'seu_usuario' pelo seu nome de usuário)
+        # sudo chown -R seu_usuario:seu_usuario "$dest_theme_dir"
+        # check_status $? "Propriedade alterada para o usuário" "Erro ao alterar a propriedade de $subfolder_name"
     done
 done
+
+log_message "Processo de instalação e permissão concluído." "$GREEN" "[✔]"
