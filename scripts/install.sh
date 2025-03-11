@@ -18,10 +18,25 @@ show_menu() {
     echo -e "Escolha uma das opções abaixo:"
     
     for i in {1..4}; do
+        case $i in
+            1)
+                option_name="Instalar Pacotes base"
+                ;;
+            2)
+                option_name="Copiar configs personalizadas"
+                ;;
+            3)
+                option_name="Acrescentar Temas personalizados"
+                ;;
+            4)
+                option_name="Acrescentar Icones personalizados"
+                ;;
+        esac
+
         if [[ " ${chosen[@]} " =~ " $i " ]]; then
-            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [✔]"
+            echo "$i) $option_name [✔]"
         else
-            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [ ]"
+            echo "$i) $option_name [ ]"
         fi
     done
 
