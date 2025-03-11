@@ -12,9 +12,22 @@ URLS=(
     "https://raw.githubusercontent.com/thespation/arch-i3wm/refs/heads/main/scripts/icons.sh"
 )
 
-# Função para executar scripts
-execute_script() {
-    curl -s "${1}" | bash
+# Função para baixar os scripts para /tmp/thespation/arch-i3wm/scripts
+download_script() {
+    local url=$1
+    local dest_dir="/tmp/thespation/arch-i3wm/scripts"
+    
+    # Criar a pasta se não existir
+    [ ! -d "$dest_dir" ] && mkdir -p "$dest_dir"
+    
+    # Extrair o nome do arquivo da URL
+    local filename=$(basename "$url")
+    
+    # Baixar o script e sobrescrever se já existir
+    curl -s "$url" -o "$dest_dir/$filename"
+    
+    # Garantir permissão de execução no arquivo
+    chmod +x "$dest_dir/$filename"
 }
 
 # Função para exibir o cabeçalho com arte ASCII e o menu
@@ -23,7 +36,8 @@ show_menu() {
 =========================================================
 ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┌─┐┌─┐  ┌─┐┬ ┬┌┬┐┌─┐┌┬┐┌─┐┌┬┐┬┌─┐┌─┐┌┬┐┌─┐
 ││││└─┐ │ ├─┤│  ├─┤│ │  ├─┤│ │ │ │ ││││├─┤ │ │┌─┘├─┤ ││├─┤
-┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴└─┘  ┴ ┴└─┘ ┴ └─┘┴ ┴┴ ┴ ┴ ┴└─┘┴ ┴─┴┘┴ ┴${NC}"
+┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴└─┘  ┴ ┴└─┘ ┴ └─┘┴ ┴┴ ┴ ┴ ┴└─┘┴ ┴─┴┘┴ ┴
+=========================================================${NC}"
 
     echo -e "Escolha uma das opções abaixo:"
     
@@ -65,33 +79,38 @@ while true; do
     case $choice in
         1) 
             if [[ ! " ${chosen[@]} " =~ " 1 " ]]; then
-                execute_script "${URLS[0]}"
+                download_script "${URLS[0]}"
+                /tmp/thespation/arch-i3wm/scripts/packages.sh
                 chosen+=("1")
             fi
             ;;
         2)
             if [[ ! " ${chosen[@]} " =~ " 2 " ]]; then
-                execute_script "${URLS[1]}"
+                download_script "${URLS[1]}"
+                /tmp/thespation/arch-i3wm/scripts/files.sh
                 chosen+=("2")
             fi
             ;;
         3)
             if [[ ! " ${chosen[@]} " =~ " 3 " ]]; then
-                execute_script "${URLS[2]}"
+                download_script "${URLS[2]}"
+                /tmp/thespation/arch-i3wm/scripts/themes.sh
                 chosen+=("3")
             fi
             ;;
         4)
             if [[ ! " ${chosen[@]} " =~ " 4 " ]]; then
-                execute_script "${URLS[3]}"
+                download_script "${URLS[3]}"
+                /tmp/thespation/arch-i3wm/scripts/icons.sh
                 chosen+=("4")
             fi
             ;;
         5)
-            # Executar todas as opções se a opção 5 for escolhida
+            # Baixar todos os scripts se a opção 5 for escolhida
             for i in {0..3}; do
                 if [[ ! " ${chosen[@]} " =~ " $((i+1)) " ]]; then
-                    execute_script "${URLS[$i]}"
+                    download_script "${URLS[$i]}"
+                    /tmp/thespation/arch-i3wm/scripts/$(basename ${URLS[$i]})
                     chosen+=("$((i+1))")
                 fi
             done
