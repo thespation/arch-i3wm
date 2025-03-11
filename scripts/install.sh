@@ -10,7 +10,7 @@ URLS=(
 
 # Função para executar scripts
 execute_script() {
-    curl -s "${1}" | bash
+    curl -s "${1}" | bash -s
 }
 
 # Menu de opções
