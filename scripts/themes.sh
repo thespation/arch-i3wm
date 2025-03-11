@@ -80,12 +80,7 @@ find "$THEMES_DIR" -type d -name "files" | while read -r files_dir; do
 
         # Ajustar permissões para garantir que os temas sejam reconhecidos
         sudo chmod -R a+r "$dest_theme_dir"
-        check_status $? "Permissões ajustadas para $subfolder_name" "Erro ao ajustar permissões"
-
-        # Opcional: Alterar a propriedade para o seu usuário (substitua 'seu_usuario' pelo seu nome de usuário)
-        # sudo chown -R seu_usuario:seu_usuario "$dest_theme_dir"
-        # check_status $? "Propriedade alterada para o usuário" "Erro ao alterar a propriedade de $subfolder_name"
     done
 done
 
-log_message "Processo de instalação e permissão concluído." "$GREEN" "[✔]"
+log_message "Processo de instalação concluído." "$GREEN" "[✔]"
