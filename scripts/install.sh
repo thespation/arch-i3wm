@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Cores para logs
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 # URLs dos scripts
 URLS=(
     "https://raw.githubusercontent.com/thespation/arch-i3wm/refs/heads/main/scripts/packages.sh"
@@ -13,8 +17,14 @@ execute_script() {
     curl -s "${1}" | bash
 }
 
-# Função para exibir o menu com o status das opções
+# Função para exibir o cabeçalho com arte ASCII e o menu
 show_menu() {
+    echo -e "${GREEN}
+=========================================================
+┬┌┐┌┌─┐┌┬┐┌─┐┬  ┌─┐┌─┐  ┌─┐┬ ┬┌┬┐┌─┐┌┬┐┌─┐┌┬┐┬┌─┐┌─┐┌┬┐┌─┐
+││││└─┐ │ ├─┤│  ├─┤│ │  ├─┤│ │ │ │ ││││├─┤ │ │┌─┘├─┤ ││├─┤
+┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴└─┘  ┴ ┴└─┘ ┴ └─┘┴ ┴┴ ┴ ┴ ┴└─┘┴ ┴─┴┘┴ ┴${NC}"
+
     echo -e "Escolha uma das opções abaixo:"
     
     for i in {1..4}; do
