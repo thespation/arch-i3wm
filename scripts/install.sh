@@ -19,9 +19,9 @@ show_menu() {
     
     for i in {1..4}; do
         if [[ " ${chosen[@]} " =~ " $i " ]]; then
-            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [✔] Já executado"
+            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [✔]"
         else
-            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [ ] Não executado"
+            echo "$i) $(basename ${URLS[$((i-1))]} .sh) [ ]"
         fi
     done
 
@@ -42,32 +42,24 @@ while true; do
             if [[ ! " ${chosen[@]} " =~ " 1 " ]]; then
                 execute_script "${URLS[0]}"
                 chosen+=("1")
-            else
-                echo "Opção 1 já foi executada."
             fi
             ;;
         2)
             if [[ ! " ${chosen[@]} " =~ " 2 " ]]; then
                 execute_script "${URLS[1]}"
                 chosen+=("2")
-            else
-                echo "Opção 2 já foi executada."
             fi
             ;;
         3)
             if [[ ! " ${chosen[@]} " =~ " 3 " ]]; then
                 execute_script "${URLS[2]}"
                 chosen+=("3")
-            else
-                echo "Opção 3 já foi executada."
             fi
             ;;
         4)
             if [[ ! " ${chosen[@]} " =~ " 4 " ]]; then
                 execute_script "${URLS[3]}"
                 chosen+=("4")
-            else
-                echo "Opção 4 já foi executada."
             fi
             ;;
         5)
