@@ -181,3 +181,13 @@ if [ -f "$WALLPAPER_SRC" ]; then
 else
     log_message "$WALLPAPER_SRC não encontrado" "$RED" "[✖]"
 fi
+
+# Criando tema pywal e aplicando
+# Papel de parede
+WP="$HOME/.config/i3/wallpapers/01.jpg"
+feh --bg-fill "$WP"
+
+#Executa os scripts relacionados ao pywal
+$HOME/.config/i3/polybar/scripts/pywal.sh "$WP"
+$HOME/.config/i3/bin/i3dunst-pywal.sh
+wal -R
