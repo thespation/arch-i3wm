@@ -10,19 +10,14 @@ NC='\033[0m'
 spinner() {
   local pid=$!
   local delay=0.1
-  local spinstr='|/-\\'
-  local len=${#spinstr}
-  while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
-    # Limpar a linha anterior
-    printf "\r%s" "      "   # Sobrescreve a linha anterior com espaços
-    # Imprimir o novo spinner
+  local spinstr='|/-\'
+  while ps -p $pid &>/dev/null; do
     printf "\r [%c]  " "$spinstr"
-    local temp=${spinstr#?}
-    spinstr=$temp${spinstr%"$temp"}
+    spinstr=${spinstr#?}${spinstr%"${spinstr#?}"}
     sleep $delay
   done
-  # Limpar a linha do spinner após a conclusão
-  printf "\r     \r"
+  # Apenas limpar a linha sem pular para a próxima
+  printf "\r      \r"
 }
 
 # Arte ASCII inicial
@@ -32,10 +27,13 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  ├┴┐├─┤└─┐├┤ 
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘  └─┘┴ ┴└─┘└─┘${NC}"
 
-# Atualizar o sistema antes de instalar pacotes (ocultar mensagens)
+# Atualizar o sistema antes de instalar pacotes (evitar spinner para senha)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
-(sudo pacman -Syu --noconfirm &>/dev/null) & spinner
-wait
+sudo pacman -Syu --noconfirm &>/dev/null  # Solicitação de senha sem spinner
+if [ $? -ne 0 ]; then
+  echo -e "${RED}[x]${NC} Erro: autenticação falhou."
+  exit 1
+fi
 echo -e "${GREEN}[✔]${NC} Sistema atualizado"
 
 # Lista de pacotes
@@ -47,7 +45,7 @@ packages=(
   pipewire polybar rofi smartmontools strace thunar tree tumbler
   unzip viewnior wget wireless_tools wireplumber xclip xcolor xdg-user-dirs
   xdg-utils xfce4-power-manager xfce4-settings xorg-xinit
-  xorg-xsetroot yad zenity zsh zsh-autosuggestions
+  xorg-xsetroot zenity zsh zsh-autosuggestions
   zsh-history-substring-search zsh-syntax-highlighting
 )
 
@@ -57,13 +55,13 @@ install_package() {
   if pacman -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    echo -e "Instalando $pkg..."
+    echo -e "\nInstalando $pkg..."
     (sudo pacman -S --noconfirm $pkg &>/dev/null) & spinner
     wait
     if pacman -Qi $pkg &>/dev/null; then
-      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso!"
+      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
-      echo -e "${RED}[✖]${NC} Erro ao instalar $pkg."
+      echo -e "${RED}[x]${NC} Erro ao instalar $pkg"
     fi
   fi
 }
@@ -76,15 +74,14 @@ done
 # Ativação e instalação do yay
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
-  sudo pacman -S --needed --noconfirm base-devel git
   git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
   cd /tmp/yay-bin
   makepkg -si --noconfirm
   cd -
   rm -rf /tmp/yay-bin
-  echo -e "${GREEN}[✔]${NC} yay instalado com sucesso!"
+  echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
 else
-  echo -e "${GREEN}[✔]${NC} yay já está instalado."
+  echo -e "${GREEN}[✔]${NC} yay já está instalado"
 fi
 
 # Mensagem indicando instalação de pacotes do AUR
@@ -105,13 +102,13 @@ install_aur_package() {
   if yay -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    echo -e "Instalando $pkg pelo AUR..."
+    echo -e "\nInstalando $pkg pelo AUR..."
     (yay -S --noconfirm $pkg &>/dev/null) & spinner
     wait
     if yay -Qi $pkg &>/dev/null; then
-      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso!"
+      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
-      echo -e "${RED}[✖]${NC} Erro ao instalar $pkg."
+      echo -e "${RED}[x]${NC} Erro ao instalar $pkg"
     fi
   fi
 }
@@ -120,8 +117,3 @@ install_aur_package() {
 for pkg in "${aur_packages[@]}"; do
   install_aur_package $pkg
 done
-
-# Modificar para o zsh
-if pacman -Qi zsh &>/dev/null; then
-    chsh -s $(which zsh)
-fi
