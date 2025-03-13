@@ -110,22 +110,14 @@ if ! command -v yay &>/dev/null; then
   # Verificar se a pasta já existe
   if [ ! -d "/tmp/yay-bin" ]; then
     # Clonar o repositório
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
   fi
-  cd /tmp/yay-bin
+  cd /tmp/yay-bin &>/dev/null
 
-  # Solicitar senha antes de instalar dependências
-  sudo -k
-  echo -e "${YELLOW}Forneça a senha para instalar dependências necessárias...${NC}"
-  sudo pacman -S --needed --noconfirm base-devel
-  
   echo -e "${YELLOW}Instalando yay...${NC}"
   # Executar makepkg como usuário normal
-  sudo -u $USER makepkg -si --noconfirm
+  makepkg -si --noconfirm &>/dev/null
 
-  cd -
-  rm -rf /tmp/yay-bin
-  
   if command -v yay &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
   else
