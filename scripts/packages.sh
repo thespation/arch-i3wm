@@ -120,7 +120,10 @@ if ! command -v yay &>/dev/null; then
     
     cd - &>/dev/null &&
     rm -rf /tmp/yay-bin &>/dev/null
-  )
+  ) &
+  
+  # Esperar a conclusão da instalação do yay
+  wait
   
   # Parar o spinner após a instalação
   stop_spinner
