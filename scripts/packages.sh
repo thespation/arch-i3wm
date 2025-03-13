@@ -23,15 +23,14 @@ spinner() {
 # Iniciar o spinner sem bloquear
 start_spinner() {
   local msg=$1
-  echo -ne "$msg\r"
+  echo -e "$msg"
   (
     local delay=0.1
     local spinstr='|/-\'
     while :; do
       for i in `seq 0 3`; do
-        echo -ne "[${spinstr:$i:1}]"
+        echo -ne "\r[${spinstr:$i:1}]"
         sleep $delay
-        echo -ne "\b\b\b"
       done
     done
   ) &
@@ -138,8 +137,9 @@ install_aur_package() {
   if yay -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    start_spinner "Instalando $pkg pelo AUR... "
-    (yay -S --noconfirm $pkg &>/dev/null) & wait
+    echo -e "\nInstalando $pkg pelo AUR..."
+    (yay -S --noconfirm $pkg &>/dev/null) & spinner
+    wait
     stop_spinner
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
@@ -151,5 +151,6 @@ install_aur_package() {
 
 # Iterar sobre os pacotes do AUR
 for pkg in "${aur_packages[@]}"; do
+  start_spinner "Instalando $pkg pelo AUR..."
   install_aur_package $pkg
 done
