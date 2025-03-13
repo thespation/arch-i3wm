@@ -64,6 +64,7 @@ show_menu() {
     done
 
     echo "5) Todas as opções acima"
+    echo ""
 }
 # Pular linha
     echo " "
