@@ -100,7 +100,7 @@ done
 echo -e "${GREEN}
 ========================================================
 ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┌─┐┬─┐  ┌─┐┌─┐┌─┐┌─┐┌┬┐┌─┐┌─┐  ┬ ┬┌─┐┬ ┬
-││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└┬┘
+││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└─┬┘
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
 
 # Ativação e instalação do yay sem spinner durante a solicitação de senha
@@ -113,13 +113,12 @@ if ! command -v yay &>/dev/null; then
 
   # Solicitar senha antes de iniciar o spinner
   sudo -k
-  echo -e "${YELLOW}Forneça a senha para continuar a instalação do yay...${NC}"
-  sudo makepkg -si --noconfirm &
+  echo -e "${YELLOW}Forneça a senha para instalar dependências necessárias...${NC}"
+  sudo pacman -S --needed --noconfirm base-devel
   
-  # Iniciar o spinner após a senha ser fornecida
-  start_spinner "Instalando yay... ["
-  wait $!
-  stop_spinner
+  echo -e "${YELLOW}Instalando yay...${NC}"
+  # Executar makepkg como usuário normal
+  sudo -u $USER makepkg -si --noconfirm
 
   cd -
   rm -rf /tmp/yay-bin
@@ -148,14 +147,3 @@ install_aur_package() {
     (yay -S --noconfirm $pkg) & spinner
     wait
     if yay -Qi $pkg &>/dev/null; then
-      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
-    else
-      echo -e "${RED}[x]${NC} Erro ao instalar o $pkg"
-    fi
-  fi
-}
-
-# Iterar sobre os pacotes do AUR
-for pkg in "${aur_packages[@]}"; do
-  install_aur_package $pkg
-done
