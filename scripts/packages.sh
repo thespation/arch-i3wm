@@ -105,7 +105,7 @@ echo -e "${GREEN}
 
 # Ativação e instalação do yay sem spinner durante a solicitação de senha
 if ! command -v yay &>/dev/null; then
-  echo -e "${YELLOW}Instalando yay...${NC}"
+  echo -e "${YELLOW}Abilitando yay, aguarde...${NC}"
   
   # Clonar o repositório
   git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
@@ -147,3 +147,14 @@ install_aur_package() {
     (yay -S --noconfirm $pkg) & spinner
     wait
     if yay -Qi $pkg &>/dev/null; then
+      echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
+    else
+      echo -e "${RED}[x]${NC} Erro ao instalar o $pkg"
+    fi
+  fi
+}
+
+# Iterar sobre os pacotes do AUR
+for pkg in "${aur_packages[@]}"; do
+  install_aur_package $pkg
+done
