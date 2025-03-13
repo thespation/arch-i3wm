@@ -82,9 +82,14 @@ echo -e "${GREEN}
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   (
-    sudo -k && git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
+    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
     cd /tmp/yay-bin &>/dev/null &&
-    sudo -k && makepkg -si --noconfirm &>/dev/null &&
+
+    # Pausar o spinner antes de solicitar a senha
+    kill $! &>/dev/null
+    sudo -k &&
+    sudo makepkg -si --noconfirm &>/dev/null &&
+
     cd - &>/dev/null &&
     rm -rf /tmp/yay-bin &>/dev/null
   ) & spinner
@@ -97,6 +102,7 @@ if ! command -v yay &>/dev/null; then
 else
   echo -e "${GREEN}[✔]${NC} yay já está instalado"
 fi
+
 
 # Lista de pacotes do AUR
 aur_packages=(
