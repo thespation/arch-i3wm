@@ -30,7 +30,7 @@ echo -e "${GREEN}
 # Atualizar o sistema antes de instalar pacotes (evitar spinner para senha)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
 sudo pacman -Syu --noconfirm &>/dev/null  # Solicitação de senha sem spinner
-if [ $? -ne 0 ];; then
+if [ $? -ne 0 ]; then
   echo -e "${RED}[x]${NC} Erro: autenticação falhou."
   exit 1
 fi
@@ -78,7 +78,7 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└┬┘
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
 
-# Ativação e instalação do yay sem spinner durante a solicitação de senha
+# Ativação e instalação do yay com spinner após fornecer a senha
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   
@@ -87,10 +87,11 @@ if ! command -v yay &>/dev/null; then
   cd /tmp/yay-bin &>/dev/null
 
   sudo -k
-  sudo makepkg -si --noconfirm &>/dev/null &
+  echo -e "${YELLOW}Forneça a senha para continuar a instalação do yay...${NC}"
+  sudo -v
 
   # Iniciar o spinner após a solicitação da senha
-  spinner
+  sudo makepkg -si --noconfirm &>/dev/null & spinner
   wait
 
   cd - &>/dev/null
