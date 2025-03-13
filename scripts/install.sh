@@ -65,7 +65,8 @@ show_menu() {
 
     echo "5) Todas as opções acima"
 }
-
+# Pular linha
+    echo " "
 # Armazenar as opções escolhidas
 chosen=()
 
@@ -73,7 +74,7 @@ chosen=()
 while true; do
     show_menu
     # Solicitar escolha do usuário
-    read -p "\nDigite o número da opção desejada (ou '0' para sair): " choice
+    read -p "Digite o número da opção desejada (ou '0' para sair): " choice
 
     case $choice in
         1) 
