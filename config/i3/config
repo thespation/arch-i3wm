@@ -178,7 +178,7 @@ for_window [window_role="pop-up|task_dialog"] floating enable, focus
 for_window [window_role="pop-up"] floating enable, focus
 for_window [class="feh|Viewnior|Gpicview|MPlayer"] floating enable, resize set 800 600
 for_window [class="Onboard|Yad|zenity|Lxappearance|Nitrogen"] floating enable
-for_window [class="Pavucontrol|Xfce4-power-manager-settings|Nm-connection-editor"] floating enable
+for_window [class="Pavucontrol|Arandr|Xfce4-power-manager-settings|Nm-connection-editor"] floating enable
 for_window [class="Kvantum Manager|qt5ct|VirtualBox Manager|qemu|Qemu-system-x86_64"] floating enable
 for_window [class="kitty" instance="kitty-float"] floating enable
 
