@@ -182,6 +182,18 @@ else
     log_message "$WALLPAPER_SRC não encontrado" "$RED" "[✖]"
 fi
 
+# Modificar para o zsh apenas se não for o shell atual
+if [ "$(basename "$SHELL")" != "zsh" ]; then
+  if pacman -Qi zsh &>/dev/null; then
+    chsh -s $(which zsh)
+    echo -e "${GREEN}[✔]${NC} Shell alterado para zsh"
+  else
+    echo -e "${RED}[x]${NC} O zsh não está instalado"
+  fi
+else
+  echo -e "${GREEN}[✔]${NC} O shell atual já é o zsh"
+fi
+
 # Criando tema pywal e aplicando
 # Papel de parede
 WP="$HOME/.config/i3/wallpapers/01.jpg"
