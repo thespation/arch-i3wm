@@ -53,7 +53,7 @@ echo -e "${GREEN}
 
 # Atualizar o sistema antes de instalar pacotes (com spinner)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
-(sudo pacman -Syu --noconfirm &>/dev/null) &
+sudo pacman -Syu --noconfirm &>/dev/null
 start_spinner "Atualizando o sistema..."
 wait $!
 stop_spinner
@@ -79,12 +79,12 @@ packages=(
 # Verificar e instalar pacotes
 install_package() {
   local pkg=$1
-  if pacman -Qi $pkg &>/dev/null; then
+  if pacman -Qi $pkg &>/dev/null; então
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     echo -e "\nInstalando $pkg..."
     sudo pacman -S --noconfirm $pkg &>/dev/null && spinner
-    if pacman -Qi $pkg &>/dev/null; then
+    if pacman -Qi $pkg &>/dev/null; então
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
       echo -e "${RED}[x]${NC} Erro ao instalar $pkg"
@@ -93,7 +93,7 @@ install_package() {
 }
 
 # Iterar sobre os pacotes
-for pkg in "${packages[@]}"; do
+for pkg in "${packages[@]}"; então
   install_package $pkg
 done
 
@@ -105,7 +105,7 @@ echo -e "${GREEN}
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
 
 # Ativação e instalação do yay sem spinner durante a solicitação de senha
-if ! command -v yay &>/dev/null; then
+if ! command -v yay &>/dev/null; então
   echo -e "${YELLOW}Abilitando yay, aguarde...${NC}"
   
   # Verificar se a pasta já existe
@@ -152,7 +152,7 @@ install_aur_package() {
 }
 
 # Iterar sobre os pacotes do AUR
-for pkg in "${aur_packages[@]}"; do
+for pkg in "${aur_packages[@]}"; então
   install_aur_package $pkg
 done
 
