@@ -20,6 +20,29 @@ spinner() {
   printf "\r      \r"
 }
 
+start_spinner() {
+  local msg=$1
+  echo -ne "$msg\r"
+  (
+    local delay=0.1
+    local spinstr='|/-\'
+    while :; do
+      for i in `seq 0 3`; do
+        echo -ne "[${spinstr:$i:1}]"
+        sleep $delay
+        echo -ne "\b\b\b"
+      done
+    done
+  ) &
+  spinner_pid=$!
+}
+
+stop_spinner() {
+  kill $spinner_pid &>/dev/null
+  wait $spinner_pid 2>/dev/null
+  echo -ne "\r\033[K"  # Limpar a linha
+}
+
 # Arte ASCII inicial
 echo -e "${GREEN}
 ===========================================================
@@ -81,21 +104,27 @@ echo -e "${GREEN}
 # Ativação e instalação do yay com spinner
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
+  
+  # Iniciar o spinner
+  start_spinner "Instalando yay... ["
+
   (
     git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
     cd /tmp/yay-bin &>/dev/null &&
+    
+    # Parar o spinner antes de solicitar a senha
+    stop_spinner
 
-    # Pausar o spinner antes de solicitar a senha
-    kill $! &>/dev/null
     sudo -k
-    echo -e "${YELLOW}Solicitando senha...${NC}"
     sudo makepkg -si --noconfirm
-    wait
-
+    
     cd - &>/dev/null &&
     rm -rf /tmp/yay-bin &>/dev/null
-  ) & spinner
-  wait
+  )
+  
+  # Parar o spinner após a instalação
+  stop_spinner
+  
   if command -v yay &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
   else
@@ -122,7 +151,7 @@ install_aur_package() {
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
-      echo -e "${RED}[x]${NC} Erro ao instalar $pkg"
+      echo -e "${RED}[x]${NC} Erro ao instalar o $pkg"
     fi
   fi
 }
