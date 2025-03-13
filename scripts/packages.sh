@@ -87,8 +87,10 @@ if ! command -v yay &>/dev/null; then
 
     # Pausar o spinner antes de solicitar a senha
     kill $! &>/dev/null
-    sudo -k &&
-    sudo makepkg -si --noconfirm &>/dev/null &&
+    sudo -k
+    echo -e "${YELLOW}Solicitando senha...${NC}"
+    sudo makepkg -si --noconfirm
+    wait
 
     cd - &>/dev/null &&
     rm -rf /tmp/yay-bin &>/dev/null
@@ -102,7 +104,6 @@ if ! command -v yay &>/dev/null; then
 else
   echo -e "${GREEN}[✔]${NC} yay já está instalado"
 fi
-
 
 # Lista de pacotes do AUR
 aur_packages=(
