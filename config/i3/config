@@ -53,9 +53,9 @@ bindsym $mod+s exec --no-startup-id ~/.config/i3/rofi/rofi_screenshot.sh
 bindsym $mod+r exec --no-startup-id ~/.config/i3/rofi/rofi_asroot
 bindsym $mod+w exec --no-startup-id ~/.config/i3/rofi/rofi_windows
 bindsym $mod+b exec --no-startup-id ~/.config/i3/rofi/rofi_bluetooth
+bindsym $mod+t exec --no-startup-id ~/.config/i3/bin/i3setWallpaper.sh
 
 # -- i3wm --
-
 # Restore Wallpaper
 exec --no-startup-id ~/.fehbg
 
