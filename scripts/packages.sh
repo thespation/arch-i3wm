@@ -86,14 +86,15 @@ if ! command -v yay &>/dev/null; then
   git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
   cd /tmp/yay-bin &>/dev/null
 
-  sudo -k
   echo -e "${YELLOW}Forneça a senha para continuar a instalação do yay...${NC}"
   sudo -v
+  
+  sudo makepkg -si --noconfirm &>/dev/null
 
   # Iniciar o spinner após a solicitação da senha
-  sudo makepkg -si --noconfirm &>/dev/null & spinner
+  spinner &
   wait
-
+  
   cd - &>/dev/null
   rm -rf /tmp/yay-bin &>/dev/null
   
