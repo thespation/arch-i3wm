@@ -51,10 +51,13 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  ├┴┐├─┤└─┐├┤ 
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘  └─┘┴ ┴└─┘└─┘${NC}"
 
-# Atualizar o sistema antes de instalar pacotes (evitar spinner para senha)
+# Atualizar o sistema antes de instalar pacotes (com spinner)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
-sudo pacman -Syu --noconfirm &>/dev/null  # Solicitação de senha sem spinner
-if [ $? -ne 0 ]; then
+(sudo pacman -Syu --noconfirm &>/dev/null) &
+start_spinner "Atualizando o sistema..."
+wait $!
+stop_spinner
+if [ $? -ne 0 ]; então
   echo -e "${RED}[x]${NC} Erro: autenticação falhou."
   exit 1
 fi
@@ -80,8 +83,7 @@ install_package() {
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     echo -e "\nInstalando $pkg..."
-    (sudo pacman -S --noconfirm $pkg) & spinner
-    wait $!
+    sudo pacman -S --noconfirm $pkg &>/dev/null && spinner
     if pacman -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
@@ -107,7 +109,7 @@ if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Abilitando yay, aguarde...${NC}"
   
   # Verificar se a pasta já existe
-  if [ ! -d "/tmp/yay-bin" ]; then
+  if [ ! -d "/tmp/yay-bin" ]; então
     # Clonar o repositório
     git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
   fi
@@ -117,7 +119,7 @@ if ! command -v yay &>/dev/null; then
   # Executar makepkg como usuário normal
   makepkg -si --noconfirm &>/dev/null
 
-  if command -v yay &>/dev/null; then
+  if command -v yay &>/dev/null; então
     echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
   else
     echo -e "${RED}[x]${NC} Erro ao instalar o yay"
@@ -134,14 +136,14 @@ aur_packages=(
 # Verificar e instalar pacotes do AUR
 install_aur_package() {
   local pkg=$1
-  if yay -Qi $pkg &>/dev/null; then
+  if yay -Qi $pkg &>/dev/null; então
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     start_spinner "\nInstalando $pkg pelo AUR..."
     (yay -S --noconfirm $pkg &>/dev/null) &
     wait $!
     stop_spinner
-    if yay -Qi $pkg &>/dev/null; then
+    if yay -Qi $pkg &>/dev/null; então
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
       echo -e "${RED}[x]${NC} Erro ao instalar o $pkg"
