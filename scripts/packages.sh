@@ -11,14 +11,18 @@ spinner() {
   local pid=$!
   local delay=0.1
   local spinstr='|/-\\'
+  local len=${#spinstr}
   while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+    # Limpar a linha anterior
+    printf "\r%s" "      "   # Sobrescreve a linha anterior com espaços
+    # Imprimir o novo spinner
+    printf "\r [%c]  " "$spinstr"
     local temp=${spinstr#?}
-    printf " [%c]  " "$spinstr"
-    local spinstr=$temp${spinstr%"$temp"}
+    spinstr=$temp${spinstr%"$temp"}
     sleep $delay
-    printf "\b\b\b\b\b\b"
   done
-  printf "    \b\b\b\b"
+  # Limpar a linha do spinner após a conclusão
+  printf "\r     \r"
 }
 
 # Arte ASCII inicial
@@ -28,22 +32,22 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  ├┴┐├─┤└─┐├┤ 
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘  └─┘┴ ┴└─┘└─┘${NC}"
 
-# Atualizar o sistema antes de instalar pacotes
+# Atualizar o sistema antes de instalar pacotes (ocultar mensagens)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
-sudo pacman -Syu --noconfirm
-echo -e "${GREEN}[✔]${NC} Sistema atualizado!"
+(sudo pacman -Syu --noconfirm &>/dev/null) & spinner
+wait
+echo -e "${GREEN}[✔]${NC} Sistema atualizado"
 
 # Lista de pacotes
 packages=(
   arandr autotiling base base-devel bat chromium dmenu dunst eza feh ffmpegthumbnailer
   geany geany-plugins git grub gst-plugin-pipewire hsetroot htop i3-wm
-  i3blocks i3lock i3status iwd kitty libpulse lightdm lightdm-gtk-greeter
-  lightdm-gtk-greeter-settings linux-firmware linux-lts lxappearance maim mpc nano
-  neofetch network-manager-applet networkmanager nitrogen noto-fonts-emoji picom
-  pipewire polybar ranger rofi smartmontools strace thunar tree tumbler
-  unzip viewnior vim wget wireless_tools wireplumber xclip xcolor xdg-user-dirs
-  xdg-utils xf86-video-vmware xfce4-power-manager xfce4-settings xorg-xinit
-  xorg-xsetroot xss-lock xterm yad zenity zram-generator zsh zsh-autosuggestions
+  i3lock iwd kitty libpulse linux-firmware lxappearance maim mpc nano
+  neofetch network-manager-applet networkmanager noto-fonts-emoji picom
+  pipewire polybar rofi smartmontools strace thunar tree tumbler
+  unzip viewnior wget wireless_tools wireplumber xclip xcolor xdg-user-dirs
+  xdg-utils xfce4-power-manager xfce4-settings xorg-xinit
+  xorg-xsetroot yad zenity zsh zsh-autosuggestions
   zsh-history-substring-search zsh-syntax-highlighting
 )
 
@@ -55,6 +59,7 @@ install_package() {
   else
     echo -e "Instalando $pkg..."
     (sudo pacman -S --noconfirm $pkg &>/dev/null) & spinner
+    wait
     if pacman -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso!"
     else
@@ -102,6 +107,7 @@ install_aur_package() {
   else
     echo -e "Instalando $pkg pelo AUR..."
     (yay -S --noconfirm $pkg &>/dev/null) & spinner
+    wait
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso!"
     else
@@ -118,4 +124,4 @@ done
 # Modificar para o zsh
 if pacman -Qi zsh &>/dev/null; then
     chsh -s $(which zsh)
-    fi
+fi
