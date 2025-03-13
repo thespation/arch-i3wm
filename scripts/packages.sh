@@ -20,29 +20,6 @@ spinner() {
   printf "\r      \r"
 }
 
-start_spinner() {
-  local msg=$1
-  echo -ne "$msg\r"
-  (
-    local delay=0.1
-    local spinstr='|/-\'
-    while :; do
-      for i in `seq 0 3`; do
-        echo -ne "[${spinstr:$i:1}]"
-        sleep $delay
-        echo -ne "\b\b\b"
-      done
-    done
-  ) &
-  spinner_pid=$!
-}
-
-stop_spinner() {
-  kill $spinner_pid &>/dev/null
-  wait $spinner_pid 2>/dev/null
-  echo -ne "\r\033[K"  # Limpar a linha
-}
-
 # Arte ASCII inicial
 echo -e "${GREEN}
 ===========================================================
@@ -53,7 +30,7 @@ echo -e "${GREEN}
 # Atualizar o sistema antes de instalar pacotes (evitar spinner para senha)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
 sudo pacman -Syu --noconfirm &>/dev/null  # Solicitação de senha sem spinner
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ];; then
   echo -e "${RED}[x]${NC} Erro: autenticação falhou."
   exit 1
 fi
@@ -101,32 +78,23 @@ echo -e "${GREEN}
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└┬┘
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
 
-# Ativação e instalação do yay com spinner
+# Ativação e instalação do yay sem spinner durante a solicitação de senha
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   
-  # Iniciar o spinner
-  start_spinner "Instalando yay... ["
+  # Clonar o repositório e solicitar a senha primeiro
+  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
+  cd /tmp/yay-bin &>/dev/null
 
-  (
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
-    cd /tmp/yay-bin &>/dev/null &&
-    
-    # Parar o spinner antes de solicitar a senha
-    stop_spinner
+  sudo -k
+  sudo makepkg -si --noconfirm &>/dev/null &
 
-    sudo -k
-    sudo makepkg -si --noconfirm
-    
-    cd - &>/dev/null &&
-    rm -rf /tmp/yay-bin &>/dev/null
-  ) &
-  
-  # Esperar a conclusão da instalação do yay
+  # Iniciar o spinner após a solicitação da senha
+  spinner
   wait
-  
-  # Parar o spinner após a instalação
-  stop_spinner
+
+  cd - &>/dev/null
+  rm -rf /tmp/yay-bin &>/dev/null
   
   if command -v yay &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
