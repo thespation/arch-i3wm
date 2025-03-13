@@ -76,7 +76,9 @@ install_package() {
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     echo -e "\nInstalando $pkg..."
-    sudo pacman -S --noconfirm $pkg &>/dev/null && spinner
+    start_spinner "Instalando $pkg..."
+    sudo pacman -S --noconfirm $pkg &>/dev/null
+    stop_spinner
     if pacman -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
@@ -132,9 +134,8 @@ install_aur_package() {
   if yay -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    start_spinner "\nInstalando $pkg pelo AUR..."
-    (yay -S --noconfirm $pkg &>/dev/null) &
-    wait $!
+    start_spinner "Instalando $pkg pelo AUR..."
+    yay -S --noconfirm $pkg &>/dev/null
     stop_spinner
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
