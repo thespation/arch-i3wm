@@ -71,25 +71,32 @@ for pkg in "${packages[@]}"; do
   install_package $pkg
 done
 
-# Ativação e instalação do yay
-if ! command -v yay &>/dev/null; then
-  echo -e "${YELLOW}Instalando yay...${NC}"
-  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
-  cd /tmp/yay-bin
-  makepkg -si --noconfirm
-  cd -
-  rm -rf /tmp/yay-bin
-  echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
-else
-  echo -e "${GREEN}[✔]${NC} yay já está instalado"
-fi
-
 # Mensagem indicando instalação de pacotes do AUR
 echo -e "${GREEN}
 ========================================================
 ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┌─┐┬─┐  ┌─┐┌─┐┌─┐┌─┐┌┬┐┌─┐┌─┐  ┬ ┬┌─┐┬ ┬
 ││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└┬┘
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
+
+# Ativação e instalação do yay com spinner
+if ! command -v yay &>/dev/null; then
+  echo -e "${YELLOW}Instalando yay...${NC}"
+  (
+    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
+    cd /tmp/yay-bin &>/dev/null &&
+    makepkg -si --noconfirm &>/dev/null &&
+    cd - &>/dev/null &&
+    rm -rf /tmp/yay-bin &>/dev/null
+  ) & spinner
+  wait
+  if command -v yay &>/dev/null; then
+    echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
+  else
+    echo -e "${RED}[x]${NC} Erro ao instalar o yay"
+  fi
+else
+  echo -e "${GREEN}[✔]${NC} yay já está instalado"
+fi
 
 # Lista de pacotes do AUR
 aur_packages=(
