@@ -95,7 +95,7 @@ done
 echo -e "${GREEN}
 ========================================================
 ┬┌┐┌┌─┐┌┬┐┌─┐┬  ┌─┐┬─┐  ┌─┐┌─┐┌─┐┌─┐┌┬┐┌─┐┌─┐  ┬ ┬┌─┐┬ ┬
-││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└─┬┘
+││││└─┐ │ ├─┤│  ├─┤├┬┘  ├─┘├─┤│  │ │ │ ├┤ └─┐  └┬┘├─┤└┬┘
 ┴┘└┘└─┘ ┴ ┴ ┴┴─┘┴ ┴┴└─  ┴  ┴ ┴└─┘└─┘ ┴ └─┘└─┘   ┴ ┴ ┴ ┴ ${NC}"
 
 # Ativação e instalação do yay sem spinner durante a solicitação de senha
@@ -130,7 +130,7 @@ install_aur_package() {
   if yay -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    start_spinner "Instalando $pkg pelo AUR..."
+    start_spinner "\nInstalando $pkg pelo AUR..."
     yay -S --noconfirm $pkg &>/dev/null
     stop_spinner
     if yay -Qi $pkg &>/dev/null; then
