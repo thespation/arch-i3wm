@@ -86,7 +86,7 @@ install_package() {
 }
 
 # Iterar sobre os pacotes
-for pkg in "${packages[@]}"; then
+for pkg in "${packages[@]}"; do
   install_package $pkg
 done
 
@@ -145,7 +145,7 @@ install_aur_package() {
 }
 
 # Iterar sobre os pacotes do AUR
-for pkg in "${aur_packages[@]}"; then
+for pkg in "${aur_packages[@]}"; do
   install_aur_package $pkg
 done
 
