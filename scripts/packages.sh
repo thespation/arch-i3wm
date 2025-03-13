@@ -53,14 +53,7 @@ echo -e "${GREEN}
 
 # Atualizar o sistema antes de instalar pacotes (com spinner)
 echo -e "${YELLOW}Atualizando o sistema...${NC}"
-sudo pacman -Syu --noconfirm &>/dev/null
-start_spinner "Atualizando o sistema..."
-wait $!
-stop_spinner
-if [ $? -ne 0 ]; então
-  echo -e "${RED}[x]${NC} Erro: autenticação falhou."
-  exit 1
-fi
+sudo pacman -Syu --noconfirm
 echo -e "${GREEN}[✔]${NC} Sistema atualizado"
 
 # Lista de pacotes
