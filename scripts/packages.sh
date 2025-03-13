@@ -138,9 +138,9 @@ install_aur_package() {
   if yay -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    echo -e "\nInstalando $pkg pelo AUR..."
-    (yay -S --noconfirm $pkg &>/dev/null) & spinner
-    wait
+    start_spinner "Instalando $pkg pelo AUR... "
+    (yay -S --noconfirm $pkg &>/dev/null) & wait
+    stop_spinner
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
     else
@@ -151,7 +151,5 @@ install_aur_package() {
 
 # Iterar sobre os pacotes do AUR
 for pkg in "${aur_packages[@]}"; do
-  start_spinner "Instalando $pkg pelo AUR... "
   install_aur_package $pkg
-  stop_spinner
 done
