@@ -20,6 +20,31 @@ spinner() {
   printf "\r      \r"
 }
 
+# Iniciar o spinner sem bloquear
+start_spinner() {
+  local msg=$1
+  echo -ne "$msg\r"
+  (
+    local delay=0.1
+    local spinstr='|/-\'
+    while :; do
+      for i in `seq 0 3`; do
+        echo -ne "[${spinstr:$i:1}]"
+        sleep $delay
+        echo -ne "\b\b\b"
+      done
+    done
+  ) &
+  spinner_pid=$!
+}
+
+# Parar o spinner
+stop_spinner() {
+  kill $spinner_pid &>/dev/null
+  wait $spinner_pid 2>/dev/null
+  echo -ne "\r\033[K"  # Limpar a linha
+}
+
 # Arte ASCII inicial
 echo -e "${GREEN}
 ===========================================================
@@ -82,14 +107,19 @@ echo -e "${GREEN}
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   
-  # Clonar o repositório e solicitar a senha primeiro
+  # Clonar o repositório
   git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
   cd /tmp/yay-bin &>/dev/null
 
+  # Solicitar senha antes de iniciar o spinner
   sudo -k
   echo -e "${YELLOW}Forneça a senha para continuar a instalação do yay...${NC}"
-  sudo makepkg -si --noconfirm &>/dev/null && spinner &
-  wait
+  sudo makepkg -si --noconfirm &>/dev/null &
+  
+  # Iniciar o spinner após a senha ser fornecida
+  start_spinner "Instalando yay... ["
+  wait $!
+  stop_spinner
 
   cd - &>/dev/null
   rm -rf /tmp/yay-bin &>/dev/null
