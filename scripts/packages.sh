@@ -107,11 +107,14 @@ echo -e "${GREEN}
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Abilitando yay, aguarde...${NC}"
   
-  # Clonar o repositório
-  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  # Verificar se a pasta já existe
+  if [ ! -d "/tmp/yay-bin" ]; then
+    # Clonar o repositório
+    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  fi
   cd /tmp/yay-bin
 
-  # Solicitar senha antes de iniciar o spinner
+  # Solicitar senha antes de instalar dependências
   sudo -k
   echo -e "${YELLOW}Forneça a senha para instalar dependências necessárias...${NC}"
   sudo pacman -S --needed --noconfirm base-devel
