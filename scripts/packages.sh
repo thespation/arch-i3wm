@@ -81,7 +81,7 @@ install_package() {
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     echo -e "\nInstalando $pkg..."
-    (sudo pacman -S --noconfirm $pkg &>/dev/null) & spinner
+    (sudo pacman -S --noconfirm $pkg) & spinner
     wait
     if pacman -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
@@ -108,21 +108,21 @@ if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   
   # Clonar o repositório
-  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
-  cd /tmp/yay-bin &>/dev/null
+  git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+  cd /tmp/yay-bin
 
   # Solicitar senha antes de iniciar o spinner
   sudo -k
   echo -e "${YELLOW}Forneça a senha para continuar a instalação do yay...${NC}"
-  sudo makepkg -si --noconfirm &>/dev/null &
+  sudo makepkg -si --noconfirm &
   
   # Iniciar o spinner após a senha ser fornecida
   start_spinner "Instalando yay... ["
   wait $!
   stop_spinner
 
-  cd - &>/dev/null
-  rm -rf /tmp/yay-bin &>/dev/null
+  cd -
+  rm -rf /tmp/yay-bin
   
   if command -v yay &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} yay instalado com sucesso"
@@ -145,7 +145,7 @@ install_aur_package() {
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
     echo -e "\nInstalando $pkg pelo AUR..."
-    (yay -S --noconfirm $pkg &>/dev/null) & spinner
+    (yay -S --noconfirm $pkg) & spinner
     wait
     if yay -Qi $pkg &>/dev/null; then
       echo -e "${GREEN}[✔]${NC} $pkg instalado com sucesso"
