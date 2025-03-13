@@ -82,9 +82,9 @@ echo -e "${GREEN}
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Instalando yay...${NC}"
   (
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
+    sudo -k && git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null &&
     cd /tmp/yay-bin &>/dev/null &&
-    makepkg -si --noconfirm &>/dev/null &&
+    sudo -k && makepkg -si --noconfirm &>/dev/null &&
     cd - &>/dev/null &&
     rm -rf /tmp/yay-bin &>/dev/null
   ) & spinner
