@@ -75,7 +75,6 @@ install_package() {
   if pacman -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    echo -e "\nInstalando $pkg..."
     start_spinner "Instalando $pkg..."
     sudo pacman -S --noconfirm $pkg &>/dev/null
     stop_spinner
@@ -102,15 +101,12 @@ echo -e "${GREEN}
 # Ativação e instalação do yay sem spinner durante a solicitação de senha
 if ! command -v yay &>/dev/null; then
   echo -e "${YELLOW}Abilitando yay, aguarde...${NC}"
-  
   # Verificar se a pasta já existe
   if [ ! -d "/tmp/yay-bin" ]; then
     # Clonar o repositório
     git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
   fi
   cd /tmp/yay-bin &>/dev/null
-
-  echo -e "${YELLOW}Instalando yay...${NC}"
   # Executar makepkg como usuário normal
   makepkg -si --noconfirm &>/dev/null
 
