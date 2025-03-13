@@ -75,7 +75,7 @@ install_package() {
   if pacman -Qi $pkg &>/dev/null; then
     echo -e "${GREEN}[✔]${NC} $pkg já está instalado."
   else
-    start_spinner "Instalando $pkg..."
+    start_spinner "\nInstalando $pkg..."
     sudo pacman -S --noconfirm $pkg &>/dev/null
     stop_spinner
     if pacman -Qi $pkg &>/dev/null; then
