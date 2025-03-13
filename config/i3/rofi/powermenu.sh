@@ -45,7 +45,7 @@ run_cmd() {
     case "$1" in
         '--opt1') i3lock -c 000000 ;;
         '--opt2') i3-msg exit ;;
-        '--opt3') mpc -q pause && pulsemixer --mute && systemctl suspend && i3lock -c 000000 ;;
+        '--opt3') systemctl suspend && i3lock -c 000000 ;;
         '--opt4') systemctl hibernate ;;
         '--opt5') systemctl reboot ;;
         '--opt6') systemctl poweroff ;;
