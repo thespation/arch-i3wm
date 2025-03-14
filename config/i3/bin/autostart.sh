@@ -47,4 +47,4 @@ ksuperkey -e 'Super_R=Alt_L|F1' &
 ~/.config/i3/polybar/launch.sh
 
 #Resolução da VM
-~/.config/i3/bin/tela.sh
+#~/.config/i3/bin/tela.sh
