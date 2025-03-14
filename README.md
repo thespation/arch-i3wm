@@ -30,6 +30,11 @@ Menu de aplicativos, captura de tela, menu bluetooth, *powermenu* (menu para blo
 
 ![gif02-rofi](https://github.com/user-attachments/assets/d01b44a7-582a-4239-9fae-f939085122ea)
 
+## Exemplo de instalação
+Script foi executado em uma VM com o `i3wm` instalado via `archinstall`:
+
+[VM](https://github.com/user-attachments/assets/ff6f1a9a-caf8-42b0-91dd-eb8a6a431d75)
+
 # Teclas de atalhos</h2>
 Seguem os atalhos já configurados:
 <br>(Legenda: <kbd> W</kbd> = Tecla Windows, super, mod - como preferir chamar)
