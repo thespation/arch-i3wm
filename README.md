@@ -22,19 +22,22 @@ Utilize o atalho <kbd>mod</kbd> + <kbd>t</kbd> para selecionar papel de parede d
 
 ![seletorWallpaper](https://github.com/user-attachments/assets/4d2c050c-d34b-44cb-866b-4fa8be8d7c7d)
 
+> ℹ️ informação: <br>
+ Ao iniciar o seletor de papel de parede, provavelmente não exibirá as miniaturas (como na imagem acima), é preciso abri a pasta `~/.config/i3/wallpapers` com o `thunar` antes, para carregar o cache.
+
 ## Rofi utilizado
 Menu de aplicativos, captura de tela, menu bluetooth, *powermenu* (menu para bloquear a tela, encerrar sessão, hibernar(caso esteja habilitado), reiniciar e desligar):
 
 ![gif02-rofi](https://github.com/user-attachments/assets/d01b44a7-582a-4239-9fae-f939085122ea)
 
 # Teclas de atalhos</h2>
-Seguem os atalho já configurados:
+Seguem os atalhos já configurados:
 <br>(Legenda: <kbd> W</kbd> = Tecla Windows, super, mod - como preferir chamar)
 
 ## Menus
 | Teclas | Ação |
 | --- | --- |
-| <kbd>W</kbd> ou <kbd>alt</kbd> ou <kbd>F1</kbd> | Menu de aplicativos |
+| <kbd>W</kbd> ou <kbd>alt</kbd> + <kbd>F1</kbd> | Menu de aplicativos |
 | <kbd>W</kbd> + <kbd>w</kbd> | Mostra programas abertos (tecla Windows mais a tecla "w") |
 | <kbd>W</kbd> + <kbd>x</kbd> | Menu com opções de desligamento |
 | <kbd>Ctrl</kbd> + <kbd>t</kbd> | Seletor de tema |
