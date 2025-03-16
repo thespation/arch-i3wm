@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-# Add this script to your wm startup file.
-
+# Caminho para o diretório da configuração da Polybar
 DIR="$HOME/.config/i3/polybar"
 
-# Terminate already running bar instances
+# Finaliza instâncias da Polybar que já estão rodando
 killall -q polybar
 
-# Wait until the processes have been shut down
+# Aguarda até que os processos tenham sido encerrados
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-# Launch the bar
-polybar -q main -c "$DIR"/config.ini &
+# Inicia uma barra para cada monitor detectado
+if type "xrandr" > /dev/null; then
+    for monitor in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        MONITOR=$monitor polybar -q main -c "$DIR"/config.ini &
+    done
+else
+    polybar -q main -c "$DIR"/config.ini &
+fi
