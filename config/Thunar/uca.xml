@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Abrir terminal aqui</name>
+	<submenu></submenu>
+	<unique-id>1742160501806916-1</unique-id>
+	<command>kitty --working-directory %f</command>
+	<description>Example for a custom action</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>go-parent-folder</icon>
+	<name>Abrir como root</name>
+	<submenu></submenu>
+	<unique-id>1624533377465774-1</unique-id>
+	<command>pkexec thunar %f</command>
+	<description>Abrir diretório como root</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>dialog-scripts</icon>
+	<name>Abrir terminal aqui</name>
+	<submenu></submenu>
+	<unique-id>1624468705519905-1</unique-id>
+	<command>exo-open --working-directory %f --launch TerminalEmulator</command>
+	<description>Exemplo de uma ação personalizada</description>
+	<range></range>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon>kr_comparedirs</icon>
+	<name>Comparar</name>
+	<submenu></submenu>
+	<unique-id>1624533653979226-3</unique-id>
+	<command>meld %F</command>
+	<description>Comparar arquivos e diretório com Meld</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+	<text-files/>
+</action>
+<action>
+	<icon>document-edit-sign</icon>
+	<name>Editar como root</name>
+	<submenu></submenu>
+	<unique-id>1624533584185359-2</unique-id>
+	<command>apps_as_root.sh &apos;geany %f&apos;</command>
+	<description>Editar arquivo como root</description>
+	<range></range>
+	<patterns>*</patterns>
+	<text-files/>
+</action>
+<action>
+	<icon>find-location</icon>
+	<name>Localizar</name>
+	<submenu></submenu>
+	<unique-id>1624565100396327-1</unique-id>
+	<command>catfish %f</command>
+	<description>Localizar arquivo ou pasta</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+<action>
+	<icon>kr_diskusage</icon>
+	<name>Uso de disco</name>
+	<submenu></submenu>
+	<unique-id>1624533766857844-4</unique-id>
+	<command>baobab %f</command>
+	<description>Ver tamanho de diretórios</description>
+	<range></range>
+	<patterns>*</patterns>
+	<directories/>
+</action>
+</actions>
