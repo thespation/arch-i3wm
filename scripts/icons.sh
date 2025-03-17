@@ -52,7 +52,7 @@ if [ -d "$ICONS_DIR" ]; then
     check_status $? "Repositório atualizado com sucesso" "Erro ao atualizar repositório"
 else
     log_message "Clonando repositório de ícones..." "$YELLOW" "[✔]"
-    git clone "$ICONS_REPO" "$ICONS_DIR" &>/dev/null
+    git clone "$ICONS_REPO" "$ICONS_DIR"
     check_status $? "Repositório clonado com sucesso" "Erro ao clonar repositório"
 fi
 
