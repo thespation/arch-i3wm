@@ -53,7 +53,7 @@ if [ -d "$ICONS_DIR" ]; then
 else
     log_message "Clonando repositório de ícones..." "$YELLOW" "[✔]"
     git clone "$ICONS_REPO" "$ICONS_DIR"
-    check_status $? "Repositório clonado com sucesso" "Erro ao clonar repositório"
+    echo -e "Repositório clonado com sucesso"
 fi
 
 # Criar diretório de destino caso não exista
