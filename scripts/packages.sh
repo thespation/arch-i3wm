@@ -58,9 +58,9 @@ echo -e "${GREEN}[✔]${NC} Sistema atualizado"
 
 # Lista de pacotes
 packages=(
-  arandr autotiling base base-devel bat chromium dmenu dunst eza feh ffmpegthumbnailer
+  arandr autotiling baobab base base-devel bat catfish chromium dmenu dunst eza feh ffmpegthumbnailer
   geany geany-plugins git gst-plugin-pipewire gvfs hsetroot htop i3-wm
-  i3lock iwd kitty libpulse linux-firmware lxappearance maim mpc nano
+  i3lock iwd kitty libpulse linux-firmware lxappearance maim meld mpc nano
   neofetch network-manager-applet networkmanager noto-fonts-emoji picom
   pipewire polybar rofi smartmontools strace thunar tree tumbler
   unzip viewnior wget wireless_tools wireplumber xclip xcolor xdg-user-dirs
