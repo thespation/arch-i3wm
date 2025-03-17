@@ -49,7 +49,7 @@ if [ -d "$THEMES_DIR" ]; then
     check_status $? "Repositório atualizado com sucesso" "Erro ao atualizar repositório"
 else
     log_message "Clonando repositório de temas..." "$YELLOW" "[✔]"
-    git clone "$THEMES_REPO" "$THEMES_DIR" &>/dev/null
+    git clone "$THEMES_REPO" "$THEMES_DIR"
     check_status $? "Repositório clonado com sucesso" "Erro ao clonar repositório"
 fi
 
