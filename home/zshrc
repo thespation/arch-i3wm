@@ -97,7 +97,7 @@ PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_in
 
 # command not found
 command_not_found_handler() {
-	printf "%s%s? I don't know what is it\n" "$acc" "$0" >&2
+	printf "%s%s? Comando não encontrado\n" "$acc" "$0" >&2
     return 127
 }
 
@@ -134,8 +134,11 @@ fi
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
 alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
-alias update="paru -Syu --nocombinedupgrade"
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias atualizar="sudo pacman -Syu"
+alias ins="sudo pacman -S"
+alias rem="sudo pacman -Rn"
+alias pes="pacman -Ss"
+alias sysfecht="~/.local/bin/sysfetch"
 
 alias music="ncmpcpp"
 
