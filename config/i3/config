@@ -43,7 +43,8 @@ bindsym $alt+Control+v exec --no-startup-id "kitty --config ~/.config/i3/kitty/k
 bindsym $alt+Control+r exec --no-startup-id "kitty --config ~/.config/i3/kitty/kitty.conf -e ranger"
 bindsym $alt+Control+h exec --no-startup-id "kitty --config ~/.config/i3/kitty/kitty.conf -e htop"
 
-bindsym $alt+Control+m exec --no-startup-id ~/.config/i3/bin/i3music.sh
+# -- Config --
+bindsym $alt+Control+n exec --no-startup-id ~/.config/i3/polybar/scripts/troca_config_verificacao.sh
 
 # -- Rofi --
 bindsym $alt+F1 exec --no-startup-id ~/.config/i3/rofi/launcher.sh
