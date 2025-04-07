@@ -185,7 +185,7 @@ fi
 # Modificar para o zsh apenas se não for o shell atual
 if [ "$(basename "$SHELL")" != "zsh" ]; then
   if pacman -Qi zsh &>/dev/null; then
-    chsh -s $(which zsh) &>/dev/null
+    chsh -s $(which zsh)
     echo -e "${GREEN}[✔]${NC} Shell alterado para zsh"
   else
     echo -e "${RED}[x]${NC} O zsh não está instalado"
