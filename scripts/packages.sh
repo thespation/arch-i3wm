@@ -65,8 +65,19 @@ install_yay() {
 }
 
 # Pacotes do repositório oficial e AUR
-repo_packages=(arandr autotiling baobab base base-devel bat catfish chromium dmenu dunst eza feh ffmpegthumbnailer geany geany-plugins git gst-plugin-pipewire gvfs hsetroot htop i3-wm i3lock iwd kitty libpulse linux-firmware lxappearance maim meld mpc nano neofetch network-manager-applet networkmanager noto-fonts-emoji picom pipewire polybar rofi smartmontools strace thunar tree tumbler unzip viewnior wget wireless_tools wireplumber xclip xcolor xdg-user-dirs xdg-utils xfce4-power-manager xfce4-settings xorg-xinit xorg-xsetroot zenity zsh zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting)
-aur_packages=(ksuperkey pywal-git xfce-polkit)
+repo_packages=( \
+  arandr autotiling baobab base base-devel bat catfish chromium \
+  dmenu dunst eza feh ffmpegthumbnailer geany geany-plugins git \
+  gst-plugin-pipewire gvfs hsetroot htop i3-wm i3lock iwd kitty \
+  libpulse linux-firmware lxappearance maim meld mpc nano neofetch \
+  network-manager-applet networkmanager noto-fonts-emoji picom \
+  pipewire polybar rofi smartmontools strace thunar thunar-archive-plugin \
+  tree tumbler zip unzip rar unrar p7zip viewnior wget wireless_tools \
+  wireplumber xarchiver xclip xcolor xdg-user-dirs xdg-utils \
+  xfce4-power-manager xfce4-settings xorg-xinit xorg-xsetroot zenity zsh \
+  zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting )
+
+aur_packages=( ksuperkey pywal-git xfce-polkit )
 
 # Fluxo principal
 echo -e "${GREEN}
