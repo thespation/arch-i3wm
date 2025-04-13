@@ -9,7 +9,7 @@ NC='\033[0m'
 # Função spinner simplificada
 spinner() {
   local pid=$!
-  local spinstr='⣷⣯⣟⡿⢿⣻⣽⣾'
+  local spinstr='|/-\\'
   while ps -p $pid &>/dev/null; do
     printf "\r [%c]  " "$spinstr"
     spinstr=${spinstr#?}${spinstr%"${spinstr#?}"}
