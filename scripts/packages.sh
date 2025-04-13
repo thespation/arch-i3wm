@@ -72,7 +72,7 @@ repo_packages=( \
   libpulse linux-firmware lxappearance maim meld mpc nano neofetch \
   network-manager-applet networkmanager noto-fonts-emoji picom \
   pipewire polybar rofi smartmontools strace thunar thunar-archive-plugin \
-  tree tumbler zip unzip rar unrar p7zip viewnior wget wireless_tools \
+  tree tumbler zip unzip unrar p7zip viewnior wget wireless_tools \
   wireplumber xarchiver xclip xcolor xdg-user-dirs xdg-utils \
   xfce4-power-manager xfce4-settings xorg-xinit xorg-xsetroot zenity zsh \
   zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting )
