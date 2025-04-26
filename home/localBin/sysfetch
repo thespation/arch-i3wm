@@ -10,7 +10,6 @@ CRE=$(tput setaf 1)
 CGR=$(tput setaf 2)
 CYE=$(tput setaf 3)
 CBL=$(tput setaf 4)
-
 CMA=$(tput setaf 5)
 CCY=$(tput setaf 6)
 CWH=$(tput setaf 7)
@@ -42,10 +41,9 @@ while [ $i -le 6 ];do
 done
 COLORBAR=${c}$(printf "\e[37m█\e[0m▒░")
 
-
 name=$USER
 host=$(uname -n)
-distro=$(uname -o | awk -F '"' '/PRETTY_NAME/ { print $2 }' /etc/os-release)
+distro=$(awk -F '"' '/PRETTY_NAME/ { print $2 }' /etc/os-release)
 packages=$(pacman -Q | wc -l)
 wm=$(xprop -id "$(xprop -root -notype | awk '$1=="_NET_SUPPORTING_WM_CHECK:"{print $5}')" -notype -f _NET_WM_NAME 8t | grep "WM_NAME" | cut -f2 -d \")
 storage=$(df -h --output=used / | awk 'NR == 2 { print $1 }')
@@ -53,11 +51,13 @@ term=$(ps -o sid= -p "$$" | xargs ps -o ppid= -p | xargs ps -o comm= -p)
 uptm=$(uptime -p | sed -e 's/hour/hr/' -e 's/hours/hrs/' -e 's/minutes/mins/' -e 's/minute/min/' -e 's/up //')
 
 c_lvl=$(printf "%.0f" "$(grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}')")
-CPU=$(printf "%-4s\em%-5s%-25s \n" "${CGR}cpu${CNC} " "$c_lvl%" "$(draw "$c_lvl" 14)")
-ram_lvl=$(free | awk '/Mem:/ {print int($3/$2 * 100.0)}')
-RAM=$(printf "%-4s\em%-5s%-25s \n" "${CYE}ram${CNC} " "$ram_lvl%" "$(draw "$ram_lvl" 14)")
+CPU=$(printf "%-4s %-5s %-25s \n" "${CGR}cpu${CNC}" "$c_lvl%" "$(draw "$c_lvl" 14)")
+
+ram_lvl=$(free | grep -i mem | awk '{print int(($3/$2) * 100)}')
+RAM=$(printf "%-4s %-5s %-25s \n" "${CYE}ram${CNC}" "${ram_lvl}%" "$(draw "$ram_lvl" 14)")
+
 disk_lvl=$(df -h | grep '/$' | tr -s ' ' | cut -d ' ' -f5 | sed 's/%//')
-DISK=$(printf "%-4s\em%-5s%-25s \n" "${CCY}disk${CNC} " "$disk_lvl%" "$(draw "$disk_lvl" 14)")
+DISK=$(printf "%-4s %-5s %-25s \n" "${CCY}disk${CNC}" "$disk_lvl%" "$(draw "$disk_lvl" 14)")
 
 #Cleanup first
 clear
