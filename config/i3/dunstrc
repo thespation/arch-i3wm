@@ -1,14 +1,9 @@
-#  ╔╦╗╦ ╦╔╗╔╔═╗╔╦╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗	- Dunst config file for the rices
-#   ║║║ ║║║║╚═╗ ║   ║  ║ ║║║║╠╣ ║║ ╦	- https://github.com/gh0stzk/dotfiles
-#  ═╩╝╚═╝╝╚╝╚═╝ ╩   ╚═╝╚═╝╝╚╝╚  ╩╚═╝	- z0mbi3
-
 [global]
 
 monitor = 0
 follow = mouse
 
 width = (300, 400)
-#height = (0, 200)
 origin = bottom-right
 offset = (20, 60)
 scale = 0
@@ -21,14 +16,14 @@ corner_radius = 6
 
 gap_size = 4
 separator_height = 1
-separator_color = "#e5e9ef"
+separator_color="#b4b9bc"
 
 padding = 15
 horizontal_padding = 15
 text_icon_padding = 0
 
 frame_width = 0
-frame_color = "#21252f"
+frame_color="#0B1B1D"
 
 sort = no
 idle_threshold = 0
@@ -42,7 +37,6 @@ alignment = center
 vertical_alignment = center
 
 show_age_threshold = 60
-#ellipsize = middle
 ignore_newline = no
 stack_duplicates = false
 hide_duplicate_count = true
@@ -50,7 +44,6 @@ hide_duplicate_count = true
 show_indicators = yes
 
 enable_recursive_icon_lookup = true
-icon_theme = "TokyoNight-SE, Adwaita"
 icon_position = left
 min_icon_size = 60
 max_icon_size = 90
@@ -59,7 +52,6 @@ icon_corner_radius = 6
 sticky_history = yes
 history_length = 25
 
-#dmenu = /usr/bin/rofi -config "$HOME/.config/rofi/notification.rasi" -dmenu -p dunst:
 browser = /usr/bin/xdg-open
 always_run_script = true
 ignore_dbusclose = false
@@ -82,15 +74,15 @@ class = Dunst
 
 [urgency_low]
 timeout = 3
-background = "#21252f"
-foreground = "#A5ACBC"
+background="#0B1B1D"
+foreground="#4A5153"
 
 [urgency_normal]
 timeout = 5
-background = "#21252f"
-foreground = "#BCC3D3"
+background="#0B1B1D"
+foreground="#6A7074"
 
 [urgency_critical]
 timeout = 0
-background = "#21252f"
-foreground = "#C5CDDC"
+background="#0B1B1D"
+foreground="#9D6E3B"

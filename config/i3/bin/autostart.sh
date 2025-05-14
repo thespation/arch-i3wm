@@ -25,6 +25,9 @@ fi
 # Habilitar gerenciamento de energia
 xfce4-power-manager &
 
+# Wallpaper bing
+~/.config/i3/bin/bingWallpaper.sh
+
 # Habilitar Teclas Super para o Menu
 ksuperkey -e 'Super_L=Alt_L|F1' &
 ksuperkey -e 'Super_R=Alt_L|F1' &

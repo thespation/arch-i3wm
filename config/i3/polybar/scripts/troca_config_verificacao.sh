@@ -19,6 +19,7 @@ else
 fi
 
 # Reinicia o i3wm para aplicar as mudanças
-i3-msg restart
+#i3-msg restart
+~/.config/i3/polybar/launch.sh
 
 echo "Troca realizada e configurações recarregadas com sucesso!"

@@ -39,9 +39,9 @@ SCRIPTS=(
 
 for script in "${SCRIPTS[@]}"; do
     if $script; then
-        echo "✅ $script executado com sucesso."
+        notify-send "Tema aplicado" "✅ Executado com sucesso."
     else
-        echo "❌ Erro ao executar: $script" >&2
+        echo -e "❌ Erro ao executar: $script" >&2
         exit 1
     fi
 done
