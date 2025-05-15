@@ -3,6 +3,9 @@
 # Diretório onde estão os papéis de parede
 DIR="$HOME/.config/i3/wallpapers"
 
+# Definir referência para os ícones
+ICON_THEME="/usr/share/icons/Ars/apps/scalable/colors.svg"
+
 # Obter o tema GTK atual a partir do arquivo settings.ini
 THEME=$(grep -i "gtk-theme-name" "$HOME/.config/gtk-3.0/settings.ini" | cut -d'=' -f2 | tr -d '[:space:]')
 
@@ -39,7 +42,7 @@ SCRIPTS=(
 
 for script in "${SCRIPTS[@]}"; do
     if $script; then
-        notify-send "Tema aplicado" "✅ Executado com sucesso."
+        notify-send -i "$ICON_THEME" "Tema aplicado" "✅ Executado com sucesso."
     else
         echo -e "❌ Erro ao executar: $script" >&2
         exit 1
