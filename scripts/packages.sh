@@ -73,7 +73,7 @@ repo_packages=( \
   network-manager-applet networkmanager noto-fonts-emoji picom \
   pipewire polybar rofi smartmontools strace thunar thunar-archive-plugin \
   tree tumbler zip unzip unrar p7zip viewnior wget wireless_tools \
-  wireplumber xarchiver xclip xcolor xdg-user-dirs xdg-utils \
+  wireplumber xarchiver xclip xcolor xdg-user-dirs xdg-utils xdotool \
   xfce4-power-manager xfce4-settings xorg-xinit xorg-xsetroot zenity zsh \
   zsh-autosuggestions zsh-history-substring-search zsh-syntax-highlighting )
 
