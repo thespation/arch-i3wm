@@ -54,7 +54,7 @@ border='0.506,0.631,0.756'
 notify_view() {
     notify_cmd_shot="dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i $ICON_PATH"
     
-    ${notify_cmd_shot} "Copiado para área de transferência."
+    ${notify_cmd_shot} "Captura de tela" "Copiado para área de transferência."
     paplay /usr/share/sounds/freedesktop/stereo/screen-capture.oga &>/dev/null &
     
     viewnior "$file"
@@ -64,7 +64,7 @@ notify_view() {
     if [[ -f "$file" ]]; then
         dunstify -u low -i "$ICON_PATH" "Captura de tela" "Salva em $CAPTURE_DIR."
     else
-        dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i "$ICON_PATH" "Captura excluída."
+        dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i "$ICON_PATH" "Captura de tela" "Captura excluída."
     fi
 }
 
@@ -76,7 +76,7 @@ copy_shot() {
 # Contagem regressiva
 countdown() {
     for sec in $(seq $1 -1 1); do
-        dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer -i "$ICON_PATH" "Capturando em: $sec"
+        dunstify -t 1000 -h string:x-dunst-stack-tag:screenshottimer -i "$ICON_PATH" "Captura de tela" "Capturando em: $sec"
         sleep 1
     done
 }
