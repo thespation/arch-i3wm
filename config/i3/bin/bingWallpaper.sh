@@ -37,6 +37,7 @@ aplicar_papel_de_parede() {
 # Função para executar scripts relacionados ao Pywal
 executar_scripts_pywal() {
     local wp="$1"
+    ICON_PATH="/usr/share/icons/Ars/apps/scalable/deepin-image-viewer.svg"
     local scripts=(
         "wal -i $wp"
         "$HOME/.config/i3/polybar/scripts/pywal.sh $wp"
@@ -45,7 +46,9 @@ executar_scripts_pywal() {
 
     for script in "${scripts[@]}"; do
         if $script; then
-            notify-send "Tema Atualizado" "✅ Novo esquema de cores, baseado no Bing."
+            #notify-send "Tema Atualizado" "✅ Novo esquema de cores, baseado no Bing."
+            #dunstify -u low -h string:x-dunst-stack-tag:obscreenshot -i "$ICON_PATH" "✅ Novo esquema de cores, baseado no Bing."
+            notify-send -i "$ICON_PATH" "Tema aplicado" "✅ Novo esquema de cores, baseado no Bing"
         fi
     done
 }
