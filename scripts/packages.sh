@@ -69,7 +69,7 @@ repo_packages=( \
   arandr autotiling baobab base base-devel bat catfish chromium \
   dmenu dunst eza feh ffmpegthumbnailer geany geany-plugins git \
   gst-plugin-pipewire gvfs hsetroot htop i3-wm i3lock iwd kitty \
-  libpulse linux-firmware lxappearance maim meld mpc nano neofetch \
+  libpulse linux-firmware lxappearance maim meld mpc nano \
   network-manager-applet networkmanager noto-fonts-emoji picom \
   pipewire polybar rofi smartmontools strace thunar thunar-archive-plugin \
   tree tumbler zip unzip unrar p7zip viewnior wget wireless_tools \
