@@ -1,15 +1,11 @@
-/**
- * Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
- **/
-
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,run,window";
     show-icons:                 true;
-    display-drun:               " Abrir";
-    display-run:                " Rodar";
-    display-filebrowser:        " Pastas";
-    display-window:             " Apps";
+    display-drun:               "";
+    display-run:                "";
+    display-filebrowser:        "";
+    display-window:             "";
 	drun-display-format:        "{name}";
 	window-format:              "{c} · {t}";
 }
@@ -18,7 +14,6 @@ configuration {
 @import                          "shared/colors.rasi"
 @import                          "shared/fonts.rasi"
 
-
 /*****----- Main Window -----*****/
 window {
     /* properties for window widget */
@@ -26,7 +21,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       600px;
+    width:                       500px;
     x-offset:                    0px;
     y-offset:                    0px;
     enabled:                     true;
@@ -38,7 +33,6 @@ window {
     cursor:                      "default";
     background-color:            @background;
 }
-
 /*****----- Main Box -----*****/
 mainbox {
     enabled:                     true;
@@ -232,8 +226,6 @@ button selected {
     text-color:                  @selected-normal-foreground;
 }
 
-
-
 /*****----- Message -----*****/
 message {
     enabled:                     true;
@@ -246,9 +238,8 @@ message {
     text-color:                  @foreground;
 }
 textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
+    background-color:            @selected-normal-foreground;
+    text-color:                  @selected-normal-foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
-
