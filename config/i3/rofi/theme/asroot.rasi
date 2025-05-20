@@ -1,7 +1,3 @@
-/**
- * Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
- **/
-
 /*****----- Configuration -----*****/
 configuration {
     show-icons:                 false;
@@ -21,12 +17,12 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       500px;
+    width:                       455px;
     x-offset:                    0px;
     y-offset:                    0px;
     margin:                      0px;
     padding:                     0px;
-    border:                      1px solid;
+    border:                      2px solid;
     border-radius:               0px;
     border-color:                @selected-active-background;
     cursor:                      "default";
@@ -50,7 +46,7 @@ inputbar {
     padding:                     0px;
     border:                      0px;
     border-radius:               0px;
-    border-color:                @selected-active-background;
+    border-color:                @selected-normal-background;
     background-color:            transparent;
     text-color:                  @foreground;
     children:                    [ "textbox-prompt-colon", "prompt"];
@@ -60,32 +56,33 @@ textbox-prompt-colon {
     enabled:                     true;
     expand:                      false;
     str:                         "";
-    padding:                     10px 12px;
-    background-color:            @selected-active-foreground;
-    text-color:                  @background;
+    padding:                     8px 10px;
+    border-radius:               0px;
+    background-color:            @selected-normal-background;
+    text-color:                  @foreground;
 }
 prompt {
     enabled:                     true;
-    padding:                     10px;
+    padding:                     8px 10px;
     border-radius:               0px;
-    background-color:            @selected-active-background;
-    text-color:                  @background;
+    background-color:            @selected-normal-background;
+    text-color:                  @foreground;
 }
 
 /*****----- Message -----*****/
 message {
     enabled:                     true;
     margin:                      0px;
-    padding:                     10px;
-    border:                      0px solid;
+    padding:                     8px 10px;
+    border:                      1px solid;
     border-radius:               0px;
     border-color:                @selected-active-background;
-    background-color:            @alternate-active-background;
-    text-color:                  @foreground;
+    background-color:            @selected-active-background;
+    text-color:                  @background;
 }
 textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
+    background-color:            @selected-active-background;
+    text-color:                  @foreground;
     vertical-align:              0.5;
     horizontal-align:            0.0;
 }
@@ -93,12 +90,11 @@ textbox {
 /*****----- Listview -----*****/
 listview {
     enabled:                     true;
-    columns:                     5;
+    columns:                     6;
     lines:                       1;
     cycle:                       true;
     scrollbar:                   false;
     layout:                      vertical;
-    
     spacing:                     10px;
     background-color:            transparent;
     cursor:                      "default";
@@ -107,8 +103,8 @@ listview {
 /*****----- Elements -----*****/
 element {
     enabled:                     true;
-    padding:                     24px 10px;
-    border:                      0px solid;
+    padding:                     20px 10px;
+    border:                      1px solid;
     border-radius:               0px;
     border-color:                @selected-active-background;
     background-color:            transparent;
@@ -116,9 +112,9 @@ element {
     cursor:                      pointer;
 }
 element-text {
-    font:                        "feather 20";
+    font:                        "feather 18";
     background-color:            transparent;
-    text-color:                  inherit;
+    text-color:                  @foreground;
     cursor:                      inherit;
     vertical-align:              0.5;
     horizontal-align:            0.5;
@@ -126,25 +122,22 @@ element-text {
 
 element normal.normal,
 element alternate.normal {
-    border:                      1px solid;
-    border-radius:               0px;
-    border-color:                @selected-active-background;
     background-color:            @background;
     text-color:                  @foreground;
 }
 element normal.urgent,
 element alternate.urgent,
 element selected.active {
-    background-color:            @selected-active-background;
-    text-color:                  @background;
+    background-color:            @foreground;
+    text-color:                  @foreground;
 }
 element normal.active,
 element alternate.active,
 element selected.urgent {
-    background-color:            @selected-active-foreground;
-    text-color:                  @background;
+    background-color:            @selected-normal-background;
+    text-color:                  @foreground;
 }
 element selected.normal {
     background-color:            @selected-active-background;
-    text-color:                  @background;
+    text-color:                  @foreground;
 }
