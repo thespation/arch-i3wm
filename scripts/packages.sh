@@ -51,7 +51,7 @@ install_packages() {
 install_yay() {
   if ! command -v yay &>/dev/null; then
     echo -e "${YELLOW}Instalando yay...${NC}"
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin
+    git clone https://aur.archlinux.org/yay-bin.git /tmp/yay-bin &>/dev/null
     cd /tmp/yay-bin && makepkg -si --noconfirm &>/dev/null
     cd - &>/dev/null
     if command -v yay &>/dev/null; then
