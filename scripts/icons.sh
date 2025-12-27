@@ -53,7 +53,7 @@ if [ -d "$ICONS_DIR" ]; then
 else
     log_message "Clonando repositório de ícones..." "$YELLOW" "[✔]"
     git clone "$ICONS_REPO" "$ICONS_DIR"
-    echo -e "Repositório clonado com sucesso"
+    check_status $? "Repositório clonado com sucesso" "Erro ao clonar repositório"
 fi
 
 # Criar diretório de destino caso não exista
@@ -72,14 +72,9 @@ find "$ICONS_DIR" -type d -name "files" | while read -r files_dir; do
         subfolder_name=$(basename "$subfolder")
         dest_icon_dir="$DEST_DIR/$subfolder_name"
 
-        # Verificar se o diretório de destino já existe
-        if [ ! -d "$dest_icon_dir" ]; then
-            # Copiar diretamente a pasta para o destino
-            sudo cp -rf "$subfolder/" "$dest_icon_dir/"
-            check_status $? "Ícones copiados: $subfolder_name" "Erro ao copiar ícones: $subfolder_name"
-        else
-            log_message "Diretório já existe: $subfolder_name" "$YELLOW" "[✔]"
-        fi
+        # Sempre sobrescreve, mesmo se já existir
+        sudo cp -rf "$subfolder/" "$dest_icon_dir/"
+        check_status $? "Ícones copiados: $subfolder_name" "Erro ao copiar ícones: $subfolder_name"
     done
 done
 
